@@ -1,0 +1,85 @@
+
+create database biblioteca;
+
+
+
+
+USE biblioteca;
+
+
+create table libro (IDLIBRO int auto_increment primary key,
+    TITULO varchar(20), EDITORIAL varchar(20),
+    AREA varchar(20));
+
+
+create table AUTOR (IDAUTOR int auto_increment primary key,
+NOMBRE varchar(20), NACIONALIDAD varchar(50));
+
+
+create table ESTUDIANTE (IDESTUDIANTE int auto_increment primary key,
+DNI char(8), NOMBRE varchar(20), APELLIDOS varchar(20),
+DIRECCION varchar(30), CARRERA varchar(20), EDAD int);
+
+create table LIBAUTOR (IDAUTOR int not null, IDLIBRO int not null,
+    FOREIGN KEY (IDAUTOR) REFERENCES AUTOR(IDAUTOR),
+    FOREIGN KEY (IDLIBRO) REFERENCES LIBRO(IDLIBRO));
+
+create table PRESTAMO (IDESTUDIANTE int NOT NULL, IDLIBRO int NOT NULL,
+    FECHA_PRESTAMO datetime, FECHA_DEVOLUCION datetime,
+    DEVUELTO datetime,
+    FOREIGN KEY (IDESTUDIANTE) REFERENCES ESTUDIANTE(IDESTUDIANTE),
+    FOREIGN KEY (IDLIBRO) REFERENCES LIBRO(IDLIBRO));
+
+
+
+SELECT * FROM estudiante;
+
+INSERT INTO estudiante(dni,nombre,apellidos,direccion,carrera,edad) VALUES
+('77015161','miguel angel','lagos cubas','el agustino','computacion',22),
+('89542542','javier alexis','torres gonzales','ate','metalurgia',18),
+('14628599','wendoly','salgado garcia','la molina','electronica',20),
+('22456688','rosa','contreras ramos','san juan miraflores','electronica',22),
+('04949077','luz angelica','flores cordoba','chorrillos','computacion',19),
+('12554439','juan carlos','ospina malta','ancon','construccion civil',17);
+
+SELECT * FROM autor;
+INSERT INTO autor (nombre,nacionalidad) VALUES
+('stephen king','estado unidos'),
+('bill gates','estado unidos'),
+('adrian varpa','peru'),
+('jose mariano','chile'),
+('alfredo echenique','peru'),
+('ciro alegria','peru');
+
+
+SELECT * FROM libro;
+INSERT INTO libro values(null,'Un mundo para Julius','planeta','literatura');
+insert into libro values(null,'Los perros hambrientos','zarza','literatura');
+insert into libro values(null, 'El resplandor','lumbreas','literatura');
+insert into libro values(null, 'Circuitos','perl hew','electronica');
+insert into libro values(null, 'energia','perl hew','electronica');
+insert into libro values(null, 'historia del peru','comers','historia');
+
+
+
+
+DESCRIBE libautor;
+SELECT*FROM libautor;
+INSERT INTO libautor VALUES
+(1,3),
+(2,6),
+(3,4),
+(4,5),
+(5,1),
+(6,2);
+DESCRIBE prestamo;
+
+INSERT INTO prestamo VALUES
+(1,3,'2017/05/04','2017/06/01','2017/05/20'),
+(2,5,'2017/04/01','2017/04/12','2017/04/11'),
+(1,4,'2017/05/02','2017/06/07','2017/05/14'),
+(3,3,'2017/05/17','2017/06/11','2017/05/25'),
+(4,1,'2017/09/22','2017/10/05','2017/10/04'),
+(6,2,'2017/02/24','2017/03/13','2017/03/30');
+SELECT *FROM prestamo;
+
